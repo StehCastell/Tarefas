@@ -1,0 +1,77 @@
+Tarefas
+Passo 1
+Banco
+Mapeamento do que é do banco, os campos e os tipos
+id (int)
+titulo (string)
+descrição (string)
+observações (string)
+realizador (string)
+tempo estimado (double)
+data hora inicio (datetime)
+data hora fim (date time)
+status (enum)
+
+Criar os scripts e salvar em uma pasta numeradas para utilização futura
+
+
+Passo 2
+Criar o projeto do tipo ASP.NET Core API
+Removi a controller e a model que vem no template padrão
+Criar um biblioteca de classes com o NomeDoProjeto.Domian
+Criar um biblioteca de classes com o NomeDoProjeto.Infra
+Criar um biblioteca de classes com o NomeDoProjeto.Infra.Data
+Todas as bibliotecas de classes vieram com classes padrões que foram removidas
+
+Passo 3
+appsettings.json: tem algumas variaveis pré-definidas que serão usadas na aplicação (por ex: string de conexão com o bando de dacos, que não variam) caso um dia precisem serem mudadas, irá mudar em um lugar só e irá refletir no projeto inteiro
+
+Program: principal 
+
+Startup: é o que configura a aplicação
+Na Startup 
+  Startup: Construtor
+  IConfiguration: a propriedade quem tem as configurações 
+  ConfigureServices: configura os serviçoes que a aplicação vai usar
+  Configure: Configura a aplicação
+
+Passo 4
+Primeiro trabalhar no appsettings
+após a linha do AllowedHosts coloquei uma vírgula, pulei linha e digitei:
+"ConnectionString": "Server=127.0.0.1; Database=tarefas; Uid=root; Pwd=root"
+Server: endereço do servidor sem a porta
+Database: nome do meu database
+Uid e Pwd: usuário e senha do meu banco
+
+Criei um arquico no Projeto Tarefas.Infra para fazer o bind pegar os dados do arquivo do appsettings.json e jogar em uma classe tipada)
+Os campos da minha classe tipada são identicos a classe Json, tanto nome, quanto tipo
+public string ConnectionString { get; set; }
+
+
+Em Startup instanciei minha classe AppSettings, fiz o bind de AppSettings de Json para que em todos os lugares que a classe for usada ela já estará preenchida
+
+#region AppSettings
+
+            AppSettings appSettings = new AppSettings();
+            Configuration.Bind(appSettings);
+            services.AddSingleton(appSettings);
+
+            #endregion AppSettings
+
+            services.AddControllers();
+
+Passo 5
+Swagger
+clicando em cima de Tarefas.API ir em Gerenciar Pacotes Nuget e procurar por Swashbuckle.AspNetCore e fazer a instalação
+
+
+
+
+
+
+
+
+
+
+
+
