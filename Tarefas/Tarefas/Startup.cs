@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tarefas.Infra;
+using Tarefas.Infra.Data.DataContexts;
 
 namespace Tarefas.API
 {
@@ -55,12 +56,18 @@ namespace Tarefas.API
                     License = new OpenApiLicense
                     {
                         Name = "Lincença MIT",
-                        Url = new Uri("https://github.com/stehcastell"),
+                        Url = new Uri("https://github.com/StehCastell/Tarefas/blob/main/LICENSE"),
                     }
                 });
             });
 
             #endregion Swagger
+
+            #region DataContexts
+
+            services.AddScoped<DataContext>();
+
+            #endregion DataContexts
 
             services.AddControllers();
         }
@@ -72,6 +79,12 @@ namespace Tarefas.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(sw =>
+            {
+                sw.SwaggerEndpoint("/swagger/v1/swagger.json", "Tarefas.API");
+            });
 
             app.UseHttpsRedirection();
 

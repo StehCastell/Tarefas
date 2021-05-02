@@ -4,6 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1591</NoWarn>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\Swagger.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
@@ -13,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Tarefas.Infra.Data\Tarefas.Infra.Data.csproj" />
     <ProjectReference Include="..\Tarefas.Infra\Tarefas.Infra.csproj" />
   </ItemGroup>
 

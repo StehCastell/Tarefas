@@ -64,8 +64,37 @@ Passo 5
 Swagger
 clicando em cima de Tarefas.API ir em Gerenciar Pacotes Nuget e procurar por Swashbuckle.AspNetCore e fazer a instalação
 
+Dentro de Startup em ConfigureServicea após o endregion do AppSettings (dar 2 enters)
 
+Criar o #region do Swagger
+Configurando a documentação do swagger
+Obs: Foi subido para o github para poder criar a licença (não é obrigatório a lincença e nem subir para o git)
 
+Na pasta Properties, abrir o arquivo dentro dela e o campo "launchUrl" alterar o conteúdo para "swagger"
+
+Clicando com o botão direito no NomeDoProjeto.API, ir em Propriedades, logo depois selecionar Compilar e alterar
+Em Erros e Avisos ir em
+Suprimir avisos e adicionar ;1591
+o 1591 suprime avisos de falta de documentação xml
+Na Saída flag o check box Arquivo de documentação XML e altere para 
+bin\Debug\netcoreapp3.1\Swagger.xml
+
+Ir em Startup -> Configure
+adicionar as linhas: 
+app.UseSwagger();
+            app.UseSwaggerUI(sw =>
+            {
+                sw.SwaggerEndpoint("/swagger/v1/swagger.json", "Tarefas.API");
+            });
+
+Passo 6
+Em NomeDoProjeto.Infra.Data criar uma pasta com o nome DataContexts e dentro dessa pasta criar uma classe com o nome DataContext
+Será responsavel pela nossa conexão com o banco de dados
+Clicar em gerenciador do pacote do nuget (do projeto), em seguida colocar o MySql.Data, utilizar a Interface IDisposable que irá nos auxiliar a fechar a conexão com o banco de dados
+Depois foi criado o construtor, onde será aberto a conexão e o metodo de Dispose que fecha a conexão
+
+Em Startup -> ConfigureServices abaixo do region Swagger, criar o region DataContexts
+para injetar a classe Data Context para onde eu quiser usar
 
 
 
