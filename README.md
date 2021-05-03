@@ -1,2 +1,2 @@
 # Tarefas
- Disponibiliada uma api para gerenciamento de tarefas
+ Disponibilizada uma api para gerenciamento de tarefas
