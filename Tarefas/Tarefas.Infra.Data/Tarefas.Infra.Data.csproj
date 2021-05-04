@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.90" />
     <PackageReference Include="MySql.Data" Version="8.0.24" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Tarefas.Domain\Tarefas.Domain.csproj" />
     <ProjectReference Include="..\Tarefas.Infra\Tarefas.Infra.csproj" />
   </ItemGroup>
 

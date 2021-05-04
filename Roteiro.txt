@@ -96,7 +96,19 @@ Depois foi criado o construtor, onde será aberto a conexão e o metodo de Dispo
 Em Startup -> ConfigureServices abaixo do region Swagger, criar o region DataContexts
 para injetar a classe Data Context para onde eu quiser usar
 
+#region DataContexts
 
+            services.AddScoped<DataContext>();
+
+            #endregion DataContexts
+
+
+Passo 7
+Foi criado o Controller de Tarefa
+Foi criado depois um metodo que será o endpoint, após isso foi documentado usando xml
+criei o command de entrada
+criei o command result
+criado a interface de handler e a classe handler
 
 
 

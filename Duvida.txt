@@ -1,0 +1,2 @@
+Domain Notification
+Tenho um command de entrada, sei que tenho que validar e notificar se tiver algo errado, eu preciso aplicar esses conceitos nos meus estudos da API? 

@@ -11,8 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tarefas.Domain.Handlers;
+using Tarefas.Domain.Interfaces.Handlers;
+using Tarefas.Domain.Interfaces.Repositories;
 using Tarefas.Infra;
 using Tarefas.Infra.Data.DataContexts;
+using Tarefas.Infra.Data.Repositories;
 
 namespace Tarefas.API
 {
@@ -68,6 +72,18 @@ namespace Tarefas.API
             services.AddScoped<DataContext>();
 
             #endregion DataContexts
+
+            #region Repositories
+
+            services.AddTransient<ITarefaRepository, TarefaRepository>();
+
+            #endregion Repositories
+
+            #region Handlers
+
+            services.AddTransient<ITarefaHandler, TarefaHandler>();
+
+            #endregion Handlers
 
             services.AddControllers();
         }
