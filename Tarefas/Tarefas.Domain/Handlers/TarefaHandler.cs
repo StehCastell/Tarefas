@@ -57,5 +57,66 @@ namespace Tarefas.Domain.Handlers
                 throw ex;
             }
         }
+
+        public ICommandResult Handle(AlterarTarefaCommand command)
+        {
+            try
+            {
+                //fazer validação do command
+
+                Tarefa tarefa = new Tarefa(
+                    command.Id,
+                    command.Titulo,
+                    command.Descricao,
+                    command.Observacao,
+                    command.Realizador,
+                    command.TempoEstimado,
+                    command.DataHoraInicio,
+                    command.DataHoraFim,
+                    command.Status);
+
+                _repository.Alterar(tarefa);
+
+                var retorno = new CommandResult(true, "Tarefa Alterada com Sucesso", new
+                {
+                    Id = tarefa.Id,
+                    Titulo = tarefa.Titulo,
+                    Descricao = tarefa.Descricao,
+                    Observacao = tarefa.Observacao,
+                    Realizador = tarefa.Realizador,
+                    TempoEstimado = tarefa.TempoEstimado,
+                    DataHoraInicio = tarefa.DataHoraInicio,
+                    DataHoraFim = tarefa.DataHoraFim,
+                    Status = tarefa.Status
+                });
+
+                return retorno;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ICommandResult Handle(int id)
+        {
+            try
+            {
+                //fazer validação do id                              
+
+                _repository.Excluir(id);
+
+                var retorno = new CommandResult(true, "Tarefa Excluída com Sucesso", new
+                {
+                    Id = id
+                });
+
+                return retorno;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

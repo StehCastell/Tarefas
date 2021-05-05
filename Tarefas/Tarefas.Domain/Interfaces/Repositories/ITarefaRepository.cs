@@ -8,5 +8,7 @@ namespace Tarefas.Domain.Interfaces.Repositories
     public interface ITarefaRepository
     {
         void Inserir(Tarefa tarefa);
+        void Alterar(Tarefa tarefa);
+        void Excluir(int id);
     }
 }

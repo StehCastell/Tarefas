@@ -43,5 +43,48 @@ namespace Tarefas.Infra.Data.Repositories
                 throw ex;
             }
         }
+
+        public void Alterar(Tarefa tarefa)
+        {
+            try
+            {
+                _parametros.Add("Id", tarefa.Id, DbType.Int32);
+                _parametros.Add("Titulo", tarefa.Titulo, DbType.String);
+                _parametros.Add("Descricao", tarefa.Descricao, DbType.String);
+                _parametros.Add("Observacao", tarefa.Observacao, DbType.String);
+                _parametros.Add("Realizador", tarefa.Realizador, DbType.String);
+                _parametros.Add("TempoEstimado", tarefa.TempoEstimado, DbType.Double);
+                _parametros.Add("DataHoraInicio", tarefa.DataHoraInicio, DbType.DateTime);
+                _parametros.Add("DataHoraFim", tarefa.DataHoraFim, DbType.DateTime);
+                _parametros.Add("Status", tarefa.Status, DbType.Int16);
+
+                string sql = @"UPDATE Tarefa SET Titulo=@Titulo, Descricao=@Descricao, Observacao=@Observacao, Realizador=@Realizador, 
+                            TempoEstimado=@TempoEstimado, DataHoraInicio=@DataHoraInicio, DataHoraFim=@DataHoraFim, Status=@Status where Id=@Id";
+
+                _dataContext.MySqlConnection.Execute(sql, _parametros);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Excluir(int id)
+        {
+            try
+            {
+                _parametros.Add("Id", id, DbType.Int32);
+
+                string sql = @"DELETE from Tarefa where Id=@Id";
+
+                _dataContext.MySqlConnection.Execute(sql, _parametros);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
