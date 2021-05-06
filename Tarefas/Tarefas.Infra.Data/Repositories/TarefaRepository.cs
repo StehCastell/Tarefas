@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using Tarefas.Domain.Entities;
 using Tarefas.Domain.Interfaces.Repositories;
+using Tarefas.Domain.Queries.Tarefa;
 using Tarefas.Infra.Data.DataContexts;
 
 namespace Tarefas.Infra.Data.Repositories
@@ -79,6 +81,42 @@ namespace Tarefas.Infra.Data.Repositories
                 string sql = @"DELETE from Tarefa where Id=@Id";
 
                 _dataContext.MySqlConnection.Execute(sql, _parametros);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public TarefaQueryResult ConsultarPorId(int id)
+        {
+            try
+            {
+                _parametros.Add("Id", id, DbType.Int32);
+
+                string sql = @"select * from Tarefa where Id=@Id";
+
+                var tarefa = _dataContext.MySqlConnection.Query<TarefaQueryResult>(sql, _parametros).FirstOrDefault();
+
+                return tarefa;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<TarefaQueryResult> Listar()
+        {
+            try
+            {
+                string sql = @"select * from Tarefa";
+
+                var tarefas = _dataContext.MySqlConnection.Query<TarefaQueryResult>(sql).ToList();
+
+                return tarefas;
 
             }
             catch (Exception ex)

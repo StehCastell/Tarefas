@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Tarefas.Domain.Commands;
 using Tarefas.Domain.Commands.Tarefa.Input;
 using Tarefas.Domain.Interfaces.Handlers;
+using Tarefas.Domain.Interfaces.Repositories;
 
 namespace Tarefas.API.Controllers
 {
@@ -16,10 +17,12 @@ namespace Tarefas.API.Controllers
     public class TarefaController : ControllerBase
     {
         private readonly ITarefaHandler _handler;
+        private readonly ITarefaRepository _repository;
 
-        public TarefaController(ITarefaHandler handler)
+        public TarefaController(ITarefaHandler handler, ITarefaRepository repository)
         {
             _handler = handler;
+            _repository = repository;
         }
 
         /// <summary>
@@ -82,6 +85,43 @@ namespace Tarefas.API.Controllers
         public IActionResult ExcluirTarefa(int id)
         {
             var retorno = _handler.Handle(id);
+            return StatusCode(200, retorno);
+        }
+
+        /// <summary>
+        /// Consultar Tarefa por Id
+        /// </summary>                
+        /// <remarks><h2><b>Consultar uma Tarefa por Id na base de dados.</b></h2></remarks>
+        /// <param name="id">Número de identificação da tarefa</param>
+        /// <response code="200">OK Request</response>
+        /// <response code="204">No Content</response>
+        /// <response code="500">Internal Server Error</response>
+        [HttpGet]
+        [Route("v1/tarefas/{id}")]
+        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status500InternalServerError)]
+        public IActionResult ConsultarPorId(int id)
+        {
+            var retorno = _repository.ConsultarPorId(id);
+            return StatusCode(200, retorno);
+        }
+
+        /// <summary>
+        /// Consultar Todas as Tarefas
+        /// </summary>                
+        /// <remarks><h2><b>Consultar todas as Tarefas na base de dados.</b></h2></remarks>
+        /// <response code="200">OK Request</response>
+        /// <response code="204">No Content</response>
+        /// <response code="500">Internal Server Error</response>
+        [HttpGet]
+        [Route("v1/tarefas")]
+        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status500InternalServerError)]
+        public IActionResult Listar()
+        {
+            var retorno = _repository.Listar();
             return StatusCode(200, retorno);
         }
     }
