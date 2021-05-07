@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using Tarefas.Domain.Entities;
 using Tarefas.Domain.Interfaces.Repositories;
 using Tarefas.Domain.Queries.Tarefa;

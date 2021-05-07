@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Tarefas.Domain.Commands;
 using Tarefas.Domain.Commands.Tarefa.Input;
+using Tarefas.Domain.Commands.Tarefa.Output;
 using Tarefas.Domain.Entities;
 using Tarefas.Domain.Interfaces.Handlers;
 using Tarefas.Domain.Interfaces.Repositories;
@@ -38,7 +39,7 @@ namespace Tarefas.Domain.Handlers
 
                 _repository.Inserir(tarefa);
 
-                var retorno = new CommandResult(true, "Tarefa Cadastrada com Sucesso", new
+                var retorno = new AdicionarTarefaCommandResult(true, "Tarefa Cadastrada com Sucesso", new
                 {
                     Titulo = tarefa.Titulo,
                     Descricao = tarefa.Descricao,
@@ -77,7 +78,7 @@ namespace Tarefas.Domain.Handlers
 
                 _repository.Alterar(tarefa);
 
-                var retorno = new CommandResult(true, "Tarefa Alterada com Sucesso", new
+                var retorno = new AlterarTarefaCommandResult(true, "Tarefa Alterada com Sucesso", new
                 {
                     Id = tarefa.Id,
                     Titulo = tarefa.Titulo,
@@ -106,7 +107,7 @@ namespace Tarefas.Domain.Handlers
 
                 _repository.Excluir(id);
 
-                var retorno = new CommandResult(true, "Tarefa Excluída com Sucesso", new
+                var retorno = new ExcluirTarefaCommandResult(true, "Tarefa Excluída com Sucesso", new
                 {
                     Id = id
                 });

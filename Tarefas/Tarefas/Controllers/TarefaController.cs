@@ -6,8 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tarefas.Domain.Commands;
 using Tarefas.Domain.Commands.Tarefa.Input;
+using Tarefas.Domain.Commands.Tarefa.Output;
 using Tarefas.Domain.Interfaces.Handlers;
 using Tarefas.Domain.Interfaces.Repositories;
+using Tarefas.Domain.Queries.Tarefa;
 
 namespace Tarefas.API.Controllers
 {
@@ -36,10 +38,10 @@ namespace Tarefas.API.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpPost]
         [Route("v1/tarefas")]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status422UnprocessableEntity)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(AdicionarTarefaCommandResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AdicionarTarefaCommandResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AdicionarTarefaCommandResult), StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(typeof(AdicionarTarefaCommandResult), StatusCodes.Status500InternalServerError)]
         public IActionResult InserirTarefa([FromBody] AdicionarTarefaCommand command) 
         {
             var retorno = _handler.Handle(command);
@@ -58,10 +60,10 @@ namespace Tarefas.API.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpPut]
         [Route("v1/tarefas/{id}")]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status422UnprocessableEntity)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(AlterarTarefaCommandResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AlterarTarefaCommandResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AlterarTarefaCommandResult), StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(typeof(AlterarTarefaCommandResult), StatusCodes.Status500InternalServerError)]
         public IActionResult AlterarTarefa(int id,[FromBody] AlterarTarefaCommand command)
         {
             command.Id = id;
@@ -79,9 +81,9 @@ namespace Tarefas.API.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpDelete]
         [Route("v1/tarefas/{id}")]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status422UnprocessableEntity)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ExcluirTarefaCommandResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExcluirTarefaCommandResult), StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(typeof(ExcluirTarefaCommandResult), StatusCodes.Status500InternalServerError)]
         public IActionResult ExcluirTarefa(int id)
         {
             var retorno = _handler.Handle(id);
@@ -98,9 +100,9 @@ namespace Tarefas.API.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("v1/tarefas/{id}")]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(TarefaQueryResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TarefaQueryResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(TarefaQueryResult), StatusCodes.Status500InternalServerError)]
         public IActionResult ConsultarPorId(int id)
         {
             var retorno = _repository.ConsultarPorId(id);
@@ -116,9 +118,9 @@ namespace Tarefas.API.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("v1/tarefas")]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(CommandResult), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(List<TarefaQueryResult>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<TarefaQueryResult>), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(List<TarefaQueryResult>), StatusCodes.Status500InternalServerError)]
         public IActionResult Listar()
         {
             var retorno = _repository.Listar();
